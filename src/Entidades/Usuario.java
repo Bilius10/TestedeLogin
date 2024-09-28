@@ -42,8 +42,8 @@ public class Usuario {
     }
 
     public void setCpf(String cpf) {
-        cpf.replace(".", "");
-        cpf.replace("-", "");
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
 
         this.cpf = cpf;
     }
