@@ -7,7 +7,7 @@ public class loginUsuario extends Usuario{
     private String senha;
 
     public loginUsuario() {
-
+        setAtivo(1)
     }
 
     public loginUsuario(int ano_nascimento, int ativo, String cpf, String email, int idUsuario, String nome, int idLoginUsuario, String login, String senha) {
