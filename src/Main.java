@@ -1,4 +1,6 @@
+import DAO.InfoJogoDAO;
 import DAO.loginUsuarioDAO;
+import Entidades.InfoJogo;
 import Entidades.loginUsuario;
 
 import java.util.Scanner;
@@ -7,8 +9,12 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner teclado = new Scanner(System.in);
+
         loginUsuario loginUsuario = new loginUsuario();
         loginUsuarioDAO loginUsuarioDAO = new loginUsuarioDAO();
+
+        InfoJogo infoJogo = new InfoJogo();
+        InfoJogoDAO infoJogoDAO = new InfoJogoDAO();
 
         int opcao = 0;
         while (opcao != 3) {
@@ -41,7 +47,11 @@ public class Main {
                     loginUsuario = loginUsuarioDAO.aprovarLogin(login, senha);
 
                     if(loginUsuario.getNome() != null){
+
                         System.out.println(loginUsuario.toString());
+                        infoJogo.setIdUsuario(loginUsuario.getIdUsuario());
+                        infoJogoDAO.createInfoJogo(infoJogo);
+
                     }else {
                         System.out.println("Credenciais incorretas");
                     }
