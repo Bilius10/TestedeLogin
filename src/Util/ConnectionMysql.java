@@ -16,7 +16,6 @@ public class ConnectionMysql {
     public static Connection openConnection(){
         try{
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conectado com sucesso");
         } catch (SQLException e) {
             System.out.println("Problem com o "+ e.getMessage());
         }
