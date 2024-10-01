@@ -4,19 +4,22 @@ import Entidades.campoDeBatalha;
 import Entidades.loginUsuario;
 import Entidades.personagemJogo;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Jogo {
-    
-    public void jogar(loginUsuario loginUsuario){
+
+    public String jogar(loginUsuario loginUsuario){
+
+        Scanner teclado = new Scanner(System.in);
         InfoJogoDAO infoJogoDAO = new InfoJogoDAO();
         InfoJogo infoJogo = infoJogoDAO.findById(loginUsuario.getIdUsuario());
 
         System.out.println(" ");
 
         System.out.println("Seja bem-vindo ao Duelo de feiticeiros");
-        System.out.println("Teremos 3 poderes, e o jogo apenas acaba quando um dos dois morrer");
 
         Random random = new Random();
+
         personagemJogo usuario = new personagemJogo(loginUsuario.getNome());
         personagemJogo robo = new personagemJogo("Cleytin mill grau");
         campoDeBatalha campoDeBatalha = new campoDeBatalha(usuario, robo);
@@ -44,7 +47,7 @@ public class Jogo {
             x++;
 
             try {
-                Thread.sleep(2000); // Pausa por 2 segundos
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -67,5 +70,10 @@ public class Jogo {
         }
         infoJogo.setPartidasJogadas(infoJogo.getPartidasJogadas()+1);
         infoJogoDAO.atualizarInformacoes(infoJogo);
+
+        System.out.println(" ");
+        System.out.print("Continuar S/N: ");
+        String continuar = teclado.next();
+        return continuar;
     }
 }
