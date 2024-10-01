@@ -53,8 +53,6 @@ public class loginUsuarioDAO {
             statementLoginUsuario.setInt(3, idPessoa);
             statementLoginUsuario.executeUpdate();
 
-            System.out.println("loginUsuario inserido");
-
         }catch (SQLException e){
             System.out.println("Erro ao criar loginUsario: "+e.getMessage());
         }
