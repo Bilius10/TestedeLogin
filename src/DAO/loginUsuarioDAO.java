@@ -39,6 +39,7 @@ public class loginUsuarioDAO {
             int idPessoa = -1;
             while (resultSet.next()) {
                 idPessoa = resultSet.getInt("idUsuario");
+                loginUsuario.setIdUsuario(idPessoa);
             }
 
             //Inserindo loginUsuario
