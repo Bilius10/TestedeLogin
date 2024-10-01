@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class InfoJogoDAO {
 
@@ -26,7 +27,6 @@ public class InfoJogoDAO {
             preparedInfoJogo.setInt(5, infoJogo.getPontuacao());
             preparedInfoJogo.setInt(6, infoJogo.getIdUsuario());
             preparedInfoJogo.executeUpdate();
-            System.out.println("infoJgo criado");
 
         }catch (SQLException e){
             System.out.println("Erro ao criar infoJogo: "+e.getMessage());
@@ -90,3 +90,30 @@ public class InfoJogoDAO {
             System.out.println("Erro na atualizar informações: "+e.getMessage());
         }
     }
+
+    public void rankJogo(){
+        try {
+
+            Connection coon = ConnectionMysql.openConnection();
+
+            String sqlRankJogo = "select loginusuario.login, infojogo.pontuacao, infojogo.vitorias, infojogo.derrotas, infojogo.empates "+
+                    "from infojogo join loginusuario on infojogo.usuario_idUsuario = loginusuario.idloginUsuario "+
+                    "order by pontuacao desc";
+
+            PreparedStatement statementRank = coon.prepareStatement(sqlRankJogo);
+            ResultSet resultSet = statementRank.executeQuery();
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("login"));
+                System.out.println("Pontuação: "+resultSet.getInt("pontuacao") );
+                System.out.println("Vitorias: "+resultSet.getInt("vitorias") );
+                System.out.println("Derrotas: "+resultSet.getInt("derrotas") );
+                System.out.println("Empates: "+resultSet.getInt("empates") );
+                System.out.println(" ");
+            }
+
+        }catch (SQLException e){
+            System.out.println("Erro ao exibir rank: "+e.getMessage());
+        }
+    }
+}
