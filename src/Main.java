@@ -16,14 +16,18 @@ public class Main {
         InfoJogo infoJogo = new InfoJogo();
         InfoJogoDAO infoJogoDAO = new InfoJogoDAO();
 
+        Jogo jogo = new Jogo();
+
         int opcao = 0;
-        while (opcao != 3) {
-            System.out.println("\n 1-Criar Conta \n 2-Logar \n 3-Sair");
+        while (opcao != 4) {
+
+            System.out.println("\n 1-Criar Conta \n 2-Logar \n 3-Rank de jogadores \n 4-Sair");
             opcao = teclado.nextInt();
             System.out.println(" ");
 
             switch (opcao) {
                 case 1:
+
                     System.out.print("Nome: ");
                     loginUsuario.setNome(teclado.next());
                     System.out.print("Ano de nascimento:");
@@ -38,8 +42,12 @@ public class Main {
                     loginUsuario.setSenha(teclado.next());
                     loginUsuarioDAO.createLoginUsuario(loginUsuario);
 
+                    infoJogo.setIdUsuario(loginUsuario.getIdUsuario());
+                    infoJogoDAO.createInfoJogo(infoJogo);
+
                     break;
                 case 2:
+
                     System.out.print("Login: ");
                     String login = teclado.next();
                     System.out.print("Senha: ");
@@ -48,14 +56,20 @@ public class Main {
 
                     if(loginUsuario.getNome() != null){
 
-                        System.out.println(loginUsuario.toString());
-                        infoJogo.setIdUsuario(loginUsuario.getIdUsuario());
-                        infoJogoDAO.createInfoJogo(infoJogo);
+                        System.out.println("Seja Bem-Vindo "+ loginUsuario.getNome());
+
+                        String sairDoJogo = "S";
+                        while (sairDoJogo.equals("S")){
+                            sairDoJogo = jogo.jogar(loginUsuario);
+                        }
 
                     }else {
                         System.out.println("Credenciais incorretas");
                     }
+                    break;
+                case 3:
 
+                    infoJogoDAO.rankJogo();
                     break;
                 default:
                     System.out.println("Saindo");
